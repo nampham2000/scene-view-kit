@@ -1,0 +1,7 @@
+# Cocos generates these per project; the kit ships plain sources only.
+*.meta
+library/
+temp/
+local/
+build/
+node_modules/
