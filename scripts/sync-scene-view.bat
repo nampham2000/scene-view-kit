@@ -13,11 +13,11 @@ rem  scene, so the next Play already has it. F1 toggles.
 rem ============================================================================
 
 rem AI AGENT NOTE: bump this whenever this file changes.
-set "SYNC_VERSION=1.0.0"
+set "SYNC_VERSION=1.1.0"
 
 rem Fill this in once the kit has a remote. After that, one file is all any
 rem project ever needs and every project updates from the same place.
-set "KIT_URL="
+set "KIT_URL=https://github.com/nampham2000/scene-view-kit.git"
 
 set "KIT_NAME=scene-view-kit"
 
