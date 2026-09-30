@@ -563,13 +563,22 @@ export class SceneViewDebug extends Component {
      * always the thing drawn last.
      */
     private _pickAt (x: number, y: number): Node | null {
+        const report = (kind: string, node: Node | null) => {
+            if (this.debugInput) {
+                console.log('[SceneView] click ' + Math.round(x) + ',' + Math.round(y)
+                    + ' -> ' + kind + ': ' + (node ? node.name : 'nothing')
+                    + '  (' + this._renderers.length + ' meshes, ' + this._uiElements.length + ' ui)');
+            }
+            return node;
+        };
+
         const ui = this.enableUIPicking
             ? pickUI(this._sceneCamera, x, y, this._uiElements)
             : null;
-        if (ui) return ui.element.node;
+        if (ui) return report('ui', ui.element.node);
 
         const hit = pickRenderer(this._sceneCamera, x, y, this._renderers);
-        return hit ? hit.renderer.node : null;
+        return report('mesh', hit ? hit.renderer.node : null);
     }
 
     private _onKeyDown (e: EventKeyboard) {
@@ -622,6 +631,12 @@ export class SceneViewDebug extends Component {
             rendererEnabled: internal?.enabled,
             gizmos: !!this._gizmos,
             rect: this._sceneCamera ? `${this._sceneCamera.rect.x},${this._sceneCamera.rect.width}` : 'none',
+        });
+
+        console.log('[SceneView] scene contents:', {
+            meshRenderers: this._renderers.length,
+            uiElements: this._uiElements.length,
+            uiPicking: this.enableUIPicking,
         });
 
         console.log('[SceneView] input spaces:', {
